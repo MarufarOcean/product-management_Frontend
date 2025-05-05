@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { HttpClientModule } from '@angular/common/http';  
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-products',
@@ -11,10 +12,24 @@ import { CommonModule } from '@angular/common';
   styleUrl: './add-products.component.css',
   imports: [CommonModule, HttpClientModule,FormsModule],
 })
-export class AddProductsComponent {
+export class AddProductsComponent implements OnInit {
   products: any[] = [];
+  productId: any;
   newProduct: any = { name: '', description: '', price: 0, stock: '' };
-  constructor(private productService: ProductService) { }
+  isEditMode: boolean = false; 
+  constructor(private productService: ProductService, private router: Router, private route: ActivatedRoute ) { }
+  ngOnInit(): void {
+    // Retrieve the 'id' from query parameters
+    this.route.queryParams.subscribe(params => {
+      this.productId = params['id']; // Get the 'id' parameter
+      if (this.productId ) {
+        this.isEditMode = true; // Set edit mode to true
+        this.getProductById(this.productId ); // Load the product details
+      }
+    });
+  }
+
+  
 
   // Add new product
   addProduct() {
@@ -23,17 +38,31 @@ export class AddProductsComponent {
       return;
     }
     //console.log('Payload being sent:', this.newProduct); 
-    this.productService.addProduct(this.newProduct).subscribe({
-      next: () => {
-        alert("Product Added.");
-        // Reset the form by creating a new object instance
-        this.newProduct = { name: '', price: 0, description: '', stock: '' };
-      },
-      error: (err) => {
-        console.error("Error adding product:", err);
-        alert("Failed to add product. Please try again.");
-      }
-    });
+    if (this.isEditMode) {
+      // Update the product
+      this.productService.updateProduct(this.productId ,this.newProduct).subscribe(() => {
+        //alert('Product updated successfully!');
+        this.router.navigate(['/products']); // Navigate back to the product list after updating
+      });
+    } else {
+      // Add a new product
+      this.productService.addProduct(this.newProduct).subscribe(() => {
+        //alert('Product added successfully!');
+        this.router.navigate(['/products']); // Navigate back to the product list after adding
+      });
+    }
+  }
+
+  backToProductList() {
+    this.router.navigate(['/products']);
+  }
+
+  getProductById(productId: number) {
+    this.productService.getProductById(productId).subscribe((product: any) => {
+      console.log('Product details:', product); // Log the product details
+      this.newProduct = product;
+    }
+    );
   }
 
 }

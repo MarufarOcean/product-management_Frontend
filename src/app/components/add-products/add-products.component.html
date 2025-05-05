@@ -27,7 +27,10 @@
                 </div>
                 <div></div>
                 <div class="mb-3">
-                    <button (click)="addProduct()">Add</button>
+                    <button class="btn btn-success" style="margin-right: 5px;" (click)="addProduct()">
+                        @if(isEditMode)  { Update } @else { Add }
+                    </button> 
+                    <button class="btn btn-primary" style="margin-right: 5px;" (click)="backToProductList()">Back</button>
                 </div>
             </div>
             
