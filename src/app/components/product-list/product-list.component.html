@@ -26,7 +26,7 @@
           <th>Price</th>
           <th>Description</th>
           <th>Stock</th>
-          <th>Actions</th>
+            <th *ngIf="isAdmin" style="text-align: center;">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -36,7 +36,7 @@
           <td>{{ product.price }}</td>
           <td>{{ product.description }}</td>
           <td>{{ product.stock }}</td>
-          <td>
+          <td class="text-center">
             <button *ngIf="isAdmin" class="btn btn-danger" style="margin: 5px;" (click)="deleteProduct(product.id)">Delete</button>
             <button *ngIf="isAdmin" class="btn btn-warning" (click)="editProduct(product)">Edit</button>
           </td>
