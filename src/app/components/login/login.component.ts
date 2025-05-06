@@ -30,13 +30,6 @@ export class LoginComponent {
           alert('Invalid credentials')
         }
       }
-      // (res: any) => {
-      //   this.authService.saveToken(res.token);
-      //   alert('Login Successful!');
-      //   this.router.navigate(['/products']); // লগইন সফল হলে প্রোডাক্ট লিস্টে যাবে
-      // },
-      // error => alert('Invalid credentials')
-
     );
   }
 }
