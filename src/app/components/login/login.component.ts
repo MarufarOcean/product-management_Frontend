@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [CommonModule, FormsModule] // 👈 Import FormsModule here
+  imports: [CommonModule, FormsModule, RouterModule] // 👈 Import FormsModule here
 })
 export class LoginComponent {
   username = '';
@@ -21,8 +21,9 @@ export class LoginComponent {
     this.authService.login({ username: this.username, password: this.password }).subscribe(
       {
         next: (res) => {
-          console.log(res);
+          //console.log(res);
           this.authService.saveToken(res.token);
+          localStorage.setItem('userRole', res.userRole);
           alert('Login Successful!');
           this.router.navigate(['/products']); // লগইন সফল হলে প্রোডাক্ট লিস্টে যাবে
         },
@@ -31,5 +32,9 @@ export class LoginComponent {
         }
       }
     );
+  }
+  //Register function to navigate to the register page
+  goToRegister(product: any) {
+    this.router.navigate(['/register']);
   }
 }

@@ -23,6 +23,7 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
     this.loadProducts();
     const userRole = localStorage.getItem('userRole');
+    console.log(userRole); // Check the user role in console
     this.isAdmin = userRole === 'admin'; // Check if the user is an admin
   }
 

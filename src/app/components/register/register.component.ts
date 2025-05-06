@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [BrowserModule,FormsModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -28,7 +28,8 @@ export class RegisterComponent {
     this.authService.register(registerData).subscribe({
       next: (res) => {
         alert('Registration successful!');
-        this.router.navigate(['/login']); // Redirect to login page after successful registration
+        //localStorage.setItem('userRole', this.role);
+        this.router.navigate(['/']); // Redirect to login page after successful registration
       },
       error: (err) => {
         alert(err.error || 'Registration failed. Please try again.');

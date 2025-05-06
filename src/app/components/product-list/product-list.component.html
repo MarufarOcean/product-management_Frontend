@@ -1,6 +1,6 @@
 <div class="container">
   <div >
-    <button class="btn btn-primary" style="margin: 5px;" (click)="goToAddProduct()">Add Product</button>
+    <button *ngIf="isAdmin" class="btn btn-primary" style="margin: 5px;" (click)="goToAddProduct()">Add Product</button>
   </div>
   <div></div>
     <h2>Product List</h2>
@@ -37,8 +37,8 @@
           <td>{{ product.description }}</td>
           <td>{{ product.stock }}</td>
           <td>
-            <button class="btn btn-danger" style="margin: 5px;" (click)="deleteProduct(product.id)">Delete</button>
-            <button class="btn btn-warning" (click)="editProduct(product)">Edit</button>
+            <button *ngIf="isAdmin" class="btn btn-danger" style="margin: 5px;" (click)="deleteProduct(product.id)">Delete</button>
+            <button *ngIf="isAdmin" class="btn btn-warning" (click)="editProduct(product)">Edit</button>
           </td>
         </tr>
       </tbody>
