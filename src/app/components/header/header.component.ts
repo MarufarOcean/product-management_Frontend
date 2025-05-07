@@ -46,4 +46,7 @@ export class HeaderComponent implements OnInit{
     this.userRole = localStorage.getItem('userRole'); // Retrieve the user role
     this.cdr.detectChanges(); // Trigger change detection to update the view
   }
+  goToLogin() {
+    this.router.navigate(['/'])
+  }
 }
