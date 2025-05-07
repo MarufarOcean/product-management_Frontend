@@ -47,18 +47,6 @@ export class ProductListComponent implements OnInit {
     editProduct(product: any) {
       this.router.navigate(['/add-product'], { queryParams: { id: product.id } });
     }
-  
-    // product update
-    // updateProduct() {
-    //   if (!this.selectedProduct.name || this.selectedProduct.price <= 0) {
-    //     alert("Please enter a valid product name and price.");
-    //     return;
-    //   }
-    //   this.productService.updateProduct(this.selectedProduct.id, this.selectedProduct).subscribe(() => {
-    //     this.loadProducts();
-    //     this.selectedProduct = null; // Reset form
-    //   });
-    // }
 
   deleteProduct(id: number) {
     if (confirm('Are you sure you want to delete this product?')) {
