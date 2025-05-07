@@ -23,7 +23,8 @@ export class LoginComponent {
         next: (res) => {
           //console.log(res);
           this.authService.saveToken(res.token);
-          localStorage.setItem('userRole', res.userRole);
+          localStorage.setItem('userRole', res.userRole,);
+          localStorage.setItem('username', this.username); // Save the username to local storage
           alert('Login Successful!');
           this.router.navigate(['/products']); // লগইন সফল হলে প্রোডাক্ট লিস্টে যাবে
         },
