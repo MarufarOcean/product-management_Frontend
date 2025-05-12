@@ -51,7 +51,7 @@ export class ProductListComponent implements OnInit {
     // product edit
     previwProduct(product: any) {
       //this.router.navigate(['/preview'], { queryParams: { id: product.id } });
-      this.router.navigate(['/preview']);
+      this.router.navigate(['/preview'], { queryParams: { id: product.id } });
     }
     
   deleteProduct(id: number) {

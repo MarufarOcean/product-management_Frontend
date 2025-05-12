@@ -15,8 +15,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AddProductsComponent implements OnInit {
   products: any[] = [];
   productId: any;
-  newProduct: any = { name: '', description: '', price: 0, stock: '' };
+  newProduct: any = { name: '', description: '', price: 0, stock: '', details :'', photo : null, photoUrl: '' };
   isEditMode: boolean = false; 
+  imagePreview: string | ArrayBuffer | null = null; // Property to store the image preview
+
   constructor(private productService: ProductService, private router: Router, private route: ActivatedRoute ) { }
   ngOnInit(): void {
     // Retrieve the 'id' from query parameters
@@ -37,7 +39,18 @@ export class AddProductsComponent implements OnInit {
       alert("Please enter a valid product name and price.");
       return;
     }
-    //console.log('Payload being sent:', this.newProduct); 
+    
+
+    const formData = new FormData();
+    formData.append('name', this.newProduct.name);
+    formData.append('description', this.newProduct.description);
+    formData.append('price', this.newProduct.price.toString());
+    formData.append('stock', this.newProduct.stock.toString());
+    formData.append('details', this.newProduct.details);
+    if (this.newProduct.photo) {
+      formData.append('photo', this.newProduct.photo); // Append the file
+    }
+    //console.log('Payload being sent:', formData); 
     if (this.isEditMode) {
       // Update the product
       this.productService.updateProduct(this.productId ,this.newProduct).subscribe(() => {
@@ -59,10 +72,29 @@ export class AddProductsComponent implements OnInit {
 
   getProductById(productId: number) {
     this.productService.getProductById(productId).subscribe((product: any) => {
-      console.log('Product details:', product); // Log the product details
+      console.log('Product details 2:', product); // Log the product details
       this.newProduct = product;
+
+      if (product.photoUrl) {
+        this.imagePreview = product.photoUrl; // Set the image preview to the product's photo URL
+      }else {
+        console.warn('Photo URL is missing');
+      }
+    });
+  }
+
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.newProduct.image = file; // Store the selected file
+
+      // Generate a preview of the image
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result; // Set the preview to the file's data URL
+      };
+      reader.readAsDataURL(file); // Read the file as a data URL
     }
-    );
   }
 
 }
