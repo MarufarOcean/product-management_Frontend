@@ -9,6 +9,7 @@ import { ProductListComponent } from './app/components/product-list/product-list
 import { AddProductsComponent } from './app/components/add-products/add-products.component';
 import { RegisterComponent } from './app/components/register/register.component';
 import { AuthGuard } from './app/guards/auth.guard';
+import { PreviewComponent } from './app/components/preview/preview.component';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -17,6 +18,7 @@ bootstrapApplication(AppComponent, {
       { path: 'products', component: ProductListComponent },
       { path: 'add-product', component: AddProductsComponent, canActivate: [AuthGuard] },
       { path: 'register', component: RegisterComponent },
+      { path: 'preview', component: PreviewComponent },
     ]),
     importProvidersFrom(FormsModule, HttpClientModule)
   ]

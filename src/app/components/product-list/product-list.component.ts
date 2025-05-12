@@ -48,6 +48,12 @@ export class ProductListComponent implements OnInit {
       this.router.navigate(['/add-product'], { queryParams: { id: product.id } });
     }
 
+    // product edit
+    previwProduct(product: any) {
+      //this.router.navigate(['/preview'], { queryParams: { id: product.id } });
+      this.router.navigate(['/preview']);
+    }
+    
   deleteProduct(id: number) {
     if (confirm('Are you sure you want to delete this product?')) {
       this.productService.deleteProduct(id).subscribe(() => this.loadProducts());
