@@ -24,7 +24,7 @@ export class ProductListComponent implements OnInit {
     this.loadProducts();
     const userRole = localStorage.getItem('userRole');
     console.log(userRole); // Check the user role in console
-    this.isAdmin = userRole === 'admin'; // Check if the user is an admin
+    this.isAdmin = userRole?.toLowerCase() === 'admin'; // Check if the user is an admin
   }
 
   goToAddProduct() {
