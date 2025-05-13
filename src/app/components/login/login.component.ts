@@ -3,17 +3,21 @@ import { AuthService } from '../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [CommonModule, FormsModule, RouterModule] // 👈 Import FormsModule here
+  imports: [CommonModule, FormsModule, RouterModule, FontAwesomeModule] // 👈 Import FormsModule here
 })
 export class LoginComponent {
   username = '';
   password = '';
+  faUser = faUser;
+  faLock = faLock;
 
   constructor(private authService: AuthService, private router: Router) { }
 

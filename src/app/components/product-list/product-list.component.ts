@@ -4,15 +4,21 @@ import { ProductService } from '../../services/product.service';
 import { HttpClientModule } from '@angular/common/http';  
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { faTrash, faEye, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
-  imports: [CommonModule, HttpClientModule,FormsModule] 
+  imports: [CommonModule, HttpClientModule,FormsModule,FontAwesomeModule] 
 })
 export class ProductListComponent implements OnInit {
+  faPlus = faPlus ;
+  faEdit = faEdit ;
+  faTrash = faTrash ;
+  faEye = faEye ;
   products: any[] = [];
   newProduct: any = { name: '', price: 0 };
   isAdmin: boolean = false;
