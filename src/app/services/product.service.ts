@@ -24,13 +24,32 @@ export class ProductService {
     return this.http.get<any>(`${this.apiUrl}/${productId}`);
   }
 
-  addProduct(product: any): Observable<any> {
-    return this.http.post(this.apiUrl, product, { headers: this.getHeaders() });
+  addProduct(product: any, photo: File): Observable<any> {
+  const formData = new FormData();
+  formData.append('Name', product.name);
+  formData.append('Description', product.description);
+  formData.append('Details', product.details);
+  formData.append('Price', product.price);
+  formData.append('stock', product.stock);
+  if (photo) {
+    formData.append('Photo', photo);
+  }
+  return this.http.post(this.apiUrl, formData);
+}
+
+    updateProduct(id: number, product: any, photo: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('Name', product.name);
+    formData.append('Description', product.description);
+    formData.append('Details', product.details);
+    formData.append('Price', product.price);
+    formData.append('stock', product.stock);
+    if (photo) {
+      formData.append('Photo', photo);
+    }
+    return this.http.put(`${this.apiUrl}/${id}`, formData);
   }
 
-  updateProduct(id: number, product: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, product);
-  }
 
   deleteProduct(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });

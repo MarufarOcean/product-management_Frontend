@@ -15,7 +15,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AddProductsComponent implements OnInit {
   products: any[] = [];
   productId: any;
-  newProduct: any = { name: '', description: '', price: 0, stock: '', details :'', photo : null, photoUrl: '' };
+  newProduct: any = { name: '', description: '', price: 0, stock: '', details :'', photoUrl: '' };
+  photo : null | File = null; // Property to store the selected file
   isEditMode: boolean = false; 
   imagePreview: string | ArrayBuffer | null = null; // Property to store the image preview
 
@@ -41,25 +42,28 @@ export class AddProductsComponent implements OnInit {
     }
     
 
-    const formData = new FormData();
-    formData.append('name', this.newProduct.name);
-    formData.append('description', this.newProduct.description);
-    formData.append('price', this.newProduct.price.toString());
-    formData.append('stock', this.newProduct.stock.toString());
-    formData.append('details', this.newProduct.details);
-    if (this.newProduct.photo) {
-      formData.append('photo', this.newProduct.photo); // Append the file
-    }
+    // const formData = new FormData();
+    // formData.append('name', this.newProduct.name.toString());
+    // formData.append('description', this.newProduct.description.toString());
+    // formData.append('price', this.newProduct.price);
+    // formData.append('stock', this.newProduct.stock.toString());
+    // formData.append('details', this.newProduct.details.toString());
+    // if (this.newProduct.photo) {
+    //   formData.append('photo', this.newProduct.photo); // Append the file
+    // }
     //console.log('Payload being sent:', formData); 
     if (this.isEditMode) {
       // Update the product
-      this.productService.updateProduct(this.productId ,this.newProduct).subscribe(() => {
+     // console.log('FormData: ' + formData);
+      this.productService.updateProduct(this.productId ,this.newProduct, this.photo!).subscribe(() => {
         //alert('Product updated successfully!');
+        
         this.router.navigate(['/products']); // Navigate back to the product list after updating
       });
     } else {
       // Add a new product
-      this.productService.addProduct(this.newProduct).subscribe(() => {
+      //console.log('FormData: ' + formData);
+      this.productService.addProduct(this.newProduct, this.photo!).subscribe(() => {
         //alert('Product added successfully!');
         this.router.navigate(['/products']); // Navigate back to the product list after adding
       });
@@ -83,17 +87,40 @@ export class AddProductsComponent implements OnInit {
     });
   }
 
-  onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
-    if (file) {
-      this.newProduct.image = file; // Store the selected file
+  // onFileSelected(event: any): void {
+  // const file: File = event.target.files[0];
+  //  if (file) {
+  //    const reader = new FileReader();
+  //    reader.onload = () => {
+  //      this.newProduct.photo = (reader.result as string).split(',')[1]; // Extract Base64 string
+  //      this.imagePreview = reader.result; // Set the preview to the Base64 string
+  //    };
+  //    reader.readAsDataURL(file); // Read the file as a Base64 string
+  //   }
+  // }
+  // onFileSelected(event: any) {
+  //   const file = event.target.files[0];
+    // if (file) {
+    //     const reader = new FileReader();
+    //     reader.onload = (e: any) => {
+    //         this.imagePreview = e.target.result.split(',')[1]; // Extract Base64 string
+    //         this.newProduct.photoUrl = e.target.result; // Set the preview to the Base64 string
+    //     };
+    //     reader.readAsDataURL(file);
+    // }
+  // }
+  onPhotoSelected(event: any) {
+  const file = event.target.files[0];
+  this.photo = file;
 
-      // Generate a preview of the image
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imagePreview = reader.result; // Set the preview to the file's data URL
-      };
-      reader.readAsDataURL(file); // Read the file as a data URL
+  // Preview logic
+  if (file) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+            this.imagePreview = e.target.result.split(',')[1]; // Extract Base64 string
+            this.newProduct.photoUrl = e.target.result; // Set the preview to the Base64 string
+        };
+        reader.readAsDataURL(file);
     }
   }
 
