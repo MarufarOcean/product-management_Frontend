@@ -86,29 +86,7 @@ export class AddProductsComponent implements OnInit {
       }
     });
   }
-
-  // onFileSelected(event: any): void {
-  // const file: File = event.target.files[0];
-  //  if (file) {
-  //    const reader = new FileReader();
-  //    reader.onload = () => {
-  //      this.newProduct.photo = (reader.result as string).split(',')[1]; // Extract Base64 string
-  //      this.imagePreview = reader.result; // Set the preview to the Base64 string
-  //    };
-  //    reader.readAsDataURL(file); // Read the file as a Base64 string
-  //   }
-  // }
-  // onFileSelected(event: any) {
-  //   const file = event.target.files[0];
-    // if (file) {
-    //     const reader = new FileReader();
-    //     reader.onload = (e: any) => {
-    //         this.imagePreview = e.target.result.split(',')[1]; // Extract Base64 string
-    //         this.newProduct.photoUrl = e.target.result; // Set the preview to the Base64 string
-    //     };
-    //     reader.readAsDataURL(file);
-    // }
-  // }
+  // Handle file selection
   onPhotoSelected(event: any) {
   const file = event.target.files[0];
   this.photo = file;
