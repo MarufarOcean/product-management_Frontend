@@ -29,7 +29,7 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
     this.loadProducts();
     const userRole = localStorage.getItem('userRole');
-    console.log(userRole); // Check the user role in console
+    //console.log(userRole); // Check the user role in console
     this.isAdmin = userRole?.toLowerCase() === 'admin'; // Check if the user is an admin
   }
 
@@ -54,7 +54,7 @@ export class ProductListComponent implements OnInit {
       this.router.navigate(['/add-product'], { queryParams: { id: product.id } });
     }
 
-    // product edit
+    // product preview
     previwProduct(product: any) {
       //this.router.navigate(['/preview'], { queryParams: { id: product.id } });
       this.router.navigate(['/preview'], { queryParams: { id: product.id } });
