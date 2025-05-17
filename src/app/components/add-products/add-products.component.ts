@@ -76,7 +76,7 @@ export class AddProductsComponent implements OnInit {
 
   getProductById(productId: number) {
     this.productService.getProductById(productId).subscribe((product: any) => {
-      console.log('Product details 2:', product); // Log the product details
+      //console.log('Product details 2:', product); // Log the product details
       this.newProduct = product;
 
       if (product.photoUrl) {
