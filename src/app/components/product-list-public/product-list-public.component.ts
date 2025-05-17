@@ -19,7 +19,6 @@ export class ProductListPublicComponent implements OnInit {
   products: any[] = [];
   newProduct: any = { name: '', price: 0 };
   selectedProduct: any = null; // for Update
-  imagePreview: (string | null)[] = []; // Property to store the image preview
 
   constructor(private productService: ProductService, private router: Router) { }
 
@@ -31,8 +30,6 @@ export class ProductListPublicComponent implements OnInit {
     this.productService.getProducts().subscribe(
       (data) => {
         this.products = data;
-        // Set imagePreview to an array of all product photoUrls
-        this.imagePreview = this.products.map(product => product.photoUrl || null);
         console.log("This is product list: ", this.products);
       },
       (error) => {

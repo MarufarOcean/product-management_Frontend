@@ -5,7 +5,7 @@
             <div class="card h-100 shadow-sm"> 
                 <img 
                     *ngIf="product.photoUrl; else noImage"
-                    [src]="'data:image/jpeg;base64,' + imagePreview"
+                    [src]="'data:image/jpeg;base64,' + product.photoUrl"
                     class="card-img-top" 
                     alt="{{ product.name }}"
                     style="object-fit: cover; height: 220px;"
