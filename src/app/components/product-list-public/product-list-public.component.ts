@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faEye } from '@fortawesome/free-solid-svg-icons'
+import { faEye,faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { ProductService } from '../../services/product.service';
 import { Router } from '@angular/router';
 
@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class ProductListPublicComponent implements OnInit {
   faEye = faEye ;
+  faCartShopping = faCartShopping ;
   products: any[] = [];
   newProduct: any = { name: '', price: 0 };
   selectedProduct: any = null; // for Update

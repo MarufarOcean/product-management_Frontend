@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-preview',
@@ -19,7 +20,7 @@ export class PreviewComponent {
   newProduct: any = { name: '', description: '', price: 0, stock: '', details :'', photo : null, photoUrl: '' };
   imagePreview: string | ArrayBuffer | null = null; // Property to store the image preview
 
-  constructor(private productService: ProductService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private productService: ProductService, private router: Router, private route: ActivatedRoute, private location: Location ) { }
 
   ngOnInit(): void {
     // Retrieve the 'id' from query parameters
@@ -60,7 +61,8 @@ export class PreviewComponent {
   }
 
   backToProductList() {
-    this.router.navigate(['/products']);
+    //this.router.navigate(['/products']);
+    this.location.back();
   }
 
 }
