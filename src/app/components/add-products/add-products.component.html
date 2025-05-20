@@ -18,8 +18,14 @@
             <input type="text" id="productStock" class="form-control" [(ngModel)]="newProduct.stock" placeholder="Enter Stock">
         </div>
         <div class="mb-4">
-            <label for="productStock" class="form-label fw-bold">Details</label>
-            <input type="text" id="productStock" class="form-control" [(ngModel)]="newProduct.details" placeholder="Enter details of product">
+            <label for="productDetails" class="form-label fw-bold">Details</label>
+                <ngx-editor 
+                    [editor]="editor" 
+                    [toolbar]="toolbar"
+                    [(ngModel)]="newProduct.details"
+                    placeholder="Enter details of product"
+                    id="productDetails">
+                </ngx-editor>
         </div>
         <div class="mb-4">
             <label for="productImage" class="form-label fw-bold">Image</label>

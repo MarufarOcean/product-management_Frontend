@@ -1,24 +1,41 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnDestroy, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { HttpClientModule } from '@angular/common/http';  
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxEditorModule } from 'ngx-editor';
+import { Editor, Toolbar } from 'ngx-editor';
 
 @Component({
   selector: 'app-add-products',
   standalone: true,
   templateUrl: './add-products.component.html',
   styleUrl: './add-products.component.css',
-  imports: [CommonModule, HttpClientModule,FormsModule],
+  imports: [CommonModule, HttpClientModule,FormsModule, NgxEditorModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AddProductsComponent implements OnInit {
+export class AddProductsComponent implements OnInit, OnDestroy {
   products: any[] = [];
   productId: any;
   newProduct: any = { name: '', description: '', price: 0, stock: '', details :'', photoUrl: '' };
   photo : null | File = null; // Property to store the selected file
   isEditMode: boolean = false; 
   imagePreview: string | ArrayBuffer | null = null; // Property to store the image preview
+
+  editor!: Editor;
+
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+    ['undo', 'redo']
+  ];
 
   constructor(private productService: ProductService, private router: Router, private route: ActivatedRoute ) { }
   ngOnInit(): void {
@@ -30,8 +47,14 @@ export class AddProductsComponent implements OnInit {
         this.getProductById(this.productId ); // Load the product details
       }
     });
+
+    this.editor = new Editor();
+
   }
 
+  ngOnDestroy() {
+    this.editor.destroy();
+  }
   
 
   // Add new product

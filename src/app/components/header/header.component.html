@@ -6,7 +6,9 @@
       <span *ngIf="isLoggedIn" class="text-white me-3">
         Welcome, {{ username }} ({{ userRole }})
       </span>
-      <button *ngIf="isLoggedIn" class="btn btn-outline-light" (click)="logout()">Logout</button>
+      <button *ngIf="isLoggedIn" class="btn btn-outline-light" (click)="logout()">
+        <fa-icon [icon]="faSignOut"></fa-icon>
+      </button>
     </div>
   </div>
 </nav>

@@ -19,6 +19,12 @@ export class ProductListComponent implements OnInit {
   faEdit = faEdit ;
   faTrash = faTrash ;
   faEye = faEye ;
+
+  pageSize = 10;
+  currentPage = 1;
+  pagedProducts: any[] = [];
+  totalPages = 1;
+
   products: any[] = [];
   newProduct: any = { name: '', price: 0 };
   isAdmin: boolean = false;
@@ -28,6 +34,7 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     this.loadProducts();
+    this.updatePagedProducts();
     const userRole = localStorage.getItem('userRole');
     //console.log(userRole); // Check the user role in console
     this.isAdmin = userRole?.toLowerCase() === 'admin'; // Check if the user is an admin
@@ -60,10 +67,22 @@ export class ProductListComponent implements OnInit {
       this.router.navigate(['/preview'], { queryParams: { id: product.id } });
     }
     
-  deleteProduct(id: number) {
-    if (confirm('Are you sure you want to delete this product?')) {
-      this.productService.deleteProduct(id).subscribe(() => this.loadProducts());
-      alert('Product deleted.');
+     deleteProduct(id: number) {
+      if (confirm('Are you sure you want to delete this product?')) {
+        this.productService.deleteProduct(id).subscribe(() => this.loadProducts());
+        alert('Product deleted.');
+      }
     }
-  }
+
+    updatePagedProducts() {
+      this.totalPages = Math.ceil(this.products.length / this.pageSize);
+      const start = (this.currentPage - 1) * this.pageSize;
+      const end = start + this.pageSize;
+      this.pagedProducts = this.products.slice(start, end);
+    }
+    goToPage(page: number) {
+      if (page < 1 || page > this.totalPages) return;
+      this.currentPage = page;
+      this.updatePagedProducts();
+    }
 }

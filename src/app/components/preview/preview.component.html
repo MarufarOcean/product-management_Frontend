@@ -18,7 +18,7 @@
       <p class="text-muted mb-2"><strong>Category:</strong> {{ newProduct.description }}</p>
       <p class="mb-2"><strong>Price:</strong> {{ newProduct.price | currency:'USD' }}</p>
       <p class="mb-2"><strong>Stock:</strong> {{ newProduct.stock }}</p>
-      <p class="mb-2"><strong>Details:</strong> {{ newProduct.details }}</p>
+      <p class="mb-2"><strong>Details:</strong> <span [innerHTML]="newProduct.details"></span></p>
     </div>
         <div class="text-center mt-4">
             <button class="btn btn-secondary px-4" (click)="backToProductList()">Back</button>

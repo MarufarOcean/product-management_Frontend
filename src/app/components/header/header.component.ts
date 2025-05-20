@@ -1,15 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { faSignOut } from '@fortawesome/free-solid-svg-icons'; 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FontAwesomeModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit{
+  faSignOut = faSignOut; // FontAwesome icon for logout
   isLoggedIn: boolean = false;
   username: string | null = null; // Store the username
   userRole: string | null = null; // Store the user role
