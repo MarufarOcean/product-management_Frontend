@@ -7,14 +7,14 @@
   </div>
   
   <div class="table-responsive">
-    <table class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover" style="table-layout: fixed; width: 100%;">
       <thead class="thead-dark">
         <tr>
-          <th>Serial No</th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Description</th>
-          <th>Stock</th>
+          <th style="width: 50px;">No</th>
+          <th style="width: 600px;">Name</th>
+          <th style="width: 100px;">Price</th>
+          <th style="width: 200px;">Description</th>
+          <th style="width: 100px;">Stock</th>
           <th class="text-center">Actions</th>
         </tr>
       </thead>
@@ -38,7 +38,8 @@
             </td>
         </tr>
       </tbody>
-      <nav *ngIf="totalPages > 1">
+    </table>
+    <nav *ngIf="totalPages > 1">
         <ul class="pagination justify-content-center">
           <li class="page-item" [class.disabled]="currentPage === 1">
             <button class="page-link" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
@@ -51,6 +52,5 @@
           </li>
         </ul>
       </nav>
-    </table>
   </div>
 </div>
