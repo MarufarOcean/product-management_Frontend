@@ -48,6 +48,7 @@ export class ProductListComponent implements OnInit {
     this.productService.getProducts().subscribe(
       (data) => {
         this.products = data;
+        this.updatePagedProducts(); // Call this AFTER assigning products
       },
       (error) => {
         console.error('Error loading products:', error);
