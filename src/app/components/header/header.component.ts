@@ -17,6 +17,9 @@ export class HeaderComponent implements OnInit{
   username: string | null = null; // Store the username
   userRole: string | null = null; // Store the user role
 
+  inactivityTimeout: any;
+  readonly AUTO_LOGOUT_MINUTES = 15;
+
   constructor(private router: Router, private cdr: ChangeDetectorRef) {}
    // Define the isLoggedIn property
    
@@ -24,7 +27,10 @@ export class HeaderComponent implements OnInit{
   ngOnInit(): void {
     // Check if the user is logged in initially
     this.updateLoginStatus();
-    //console.log(this.isLoggedIn); // Check the initial login status in console
+    // Auto logout on browser/tab close
+    window.addEventListener('unload', () => {
+      localStorage.clear();
+    });
 
     // Listen to router events to dynamically update login status
     this.router.events.subscribe(event => {
@@ -32,8 +38,16 @@ export class HeaderComponent implements OnInit{
         this.updateLoginStatus();
       }
     });
+
+    // Auto logout after inactivity
+    this.startInactivityTimer();
+      ['click', 'mousemove', 'keypress', 'scroll'].forEach(event => {
+      window.addEventListener(event, () => this.resetInactivityTimer());
+    });
+
   }
 
+  
   logout() {
     localStorage.clear(); // Clear all stored data (e.g., token, userRole)
     this.isLoggedIn = false; // Update the isLoggedIn property
@@ -51,5 +65,17 @@ export class HeaderComponent implements OnInit{
   }
   goToLogin() {
     this.router.navigate(['/'])
+  }
+
+  startInactivityTimer() {
+    this.inactivityTimeout = setTimeout(() => {
+      this.logout();
+      alert('You have been logged out due to inactivity.');
+    }, this.AUTO_LOGOUT_MINUTES * 60 * 1000); // 15 minutes
+  }
+
+  resetInactivityTimer() {
+    clearTimeout(this.inactivityTimeout);
+    this.startInactivityTimer();
   }
 }
