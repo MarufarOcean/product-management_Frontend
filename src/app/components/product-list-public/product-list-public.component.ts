@@ -21,16 +21,23 @@ export class ProductListPublicComponent implements OnInit {
   newProduct: any = { name: '', price: 0 };
   selectedProduct: any = null; // for Update
 
+  pageSize = 10;
+  currentPage = 1;
+  pagedProducts: any[] = [];
+  totalPages = 1;
+
   constructor(private productService: ProductService, private router: Router) { }
 
   ngOnInit() {
     this.loadProducts();
+    this.updatePagedProducts();
   }
 
   loadProducts() {
     this.productService.getProducts().subscribe(
       (data) => {
         this.products = data;
+        this.updatePagedProducts();
         console.log("This is product list: ", this.products);
       },
       (error) => {
@@ -44,6 +51,17 @@ export class ProductListPublicComponent implements OnInit {
     this.router.navigate(['/preview'], { queryParams: { id: product.id } });
   }
 
+  updatePagedProducts() {
+      this.totalPages = Math.ceil(this.products.length / this.pageSize);
+      const start = (this.currentPage - 1) * this.pageSize;
+      const end = start + this.pageSize;
+      this.pagedProducts = this.products.slice(start, end);
+  }
+  goToPage(page: number) {
+      if (page < 1 || page > this.totalPages) return;
+      this.currentPage = page;
+      this.updatePagedProducts();
+  }
   
 
 }
