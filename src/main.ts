@@ -11,6 +11,10 @@ import { RegisterComponent } from './app/components/register/register.component'
 import { AuthGuard } from './app/guards/auth.guard';
 import { PreviewComponent } from './app/components/preview/preview.component';
 import { ProductListPublicComponent } from './app/components/product-list-public/product-list-public.component';
+import { OrderComponent } from './app/components/order/order.component';
+import { AddOrderComponent } from './app/components/add-order/add-order.component';
+import { SupplyComponent } from './app/components/supply/supply.component';
+import { AddSupplyComponent } from './app/components/add-supply/add-supply.component';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -20,7 +24,11 @@ bootstrapApplication(AppComponent, {
       { path: 'add-product', component: AddProductsComponent, canActivate: [AuthGuard] },
       { path: 'register', component: RegisterComponent },
       { path: 'preview', component: PreviewComponent },
-      { path: 'productsPublic', component: ProductListPublicComponent }
+      { path: 'productsPublic', component: ProductListPublicComponent },
+      { path: 'order', component: OrderComponent },
+      { path: 'add-order', component: AddOrderComponent },
+      { path: 'supply', component: SupplyComponent },
+      { path: 'add-supply', component: AddSupplyComponent }
     ]),
     importProvidersFrom(FormsModule, HttpClientModule)
   ]
