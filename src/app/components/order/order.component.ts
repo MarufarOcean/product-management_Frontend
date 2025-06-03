@@ -20,7 +20,7 @@ export class OrderComponent implements OnInit {
   editOrderId: number | null = null;
   editOrder = { productId: '', quantity: '' };
 
-  pageSize = 10;
+  pageSize = 5;
   currentPage = 1;
   pagedOrders: any[] = [];
   totalPages = 1;
@@ -61,6 +61,11 @@ export class OrderComponent implements OnInit {
   deleteOrder(id: number) {
     this.orderService.deleteOrder(id).subscribe(() => this.loadOrders());
   }
+
+  cancelEdit() {
+    this.editOrderId = null; // Exit edit mode
+  }
+
   ///pagination
   updatePagedOrders() {
       this.totalPages = Math.ceil(this.orders.length / this.pageSize);

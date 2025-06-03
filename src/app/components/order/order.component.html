@@ -41,8 +41,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let order of pagedOrders; let i = index">
-                <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+           <!-- <tr *ngFor="let order of pagedOrders; let i = index"> -->
+            <tr *ngFor="let order of orders; let i = index">
+                <!-- <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td> -->
+                <td>{{ i+1 }}</td>
                 <td *ngIf="editOrderId !== order.id">{{ order.productId }}</td>
                 <td *ngIf="editOrderId === order.id">
                     <input class="form-control" [(ngModel)]="editOrder.productId" />
@@ -55,6 +57,7 @@
                 <td>
                     <button *ngIf="editOrderId !== order.id" class="btn btn-primary btn-sm me-1" (click)="startEdit(order)">Edit</button>
                     <button *ngIf="editOrderId === order.id" class="btn btn-success btn-sm me-1" (click)="updateOrder()">Save</button>
+                    <button *ngIf="editOrderId === order.id" class="btn btn-secondary btn-sm me-1" (click)="cancelEdit()">Cancel</button>
                     <button class="btn btn-danger btn-sm" (click)="deleteOrder(order.id)">Delete</button>
                 </td>
             </tr>
