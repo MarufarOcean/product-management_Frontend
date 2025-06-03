@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faTrash, faCancel, faEdit, faPlus, faSave } from '@fortawesome/free-solid-svg-icons'
 import { ProductService } from '../../services/product.service';
 
 
@@ -16,6 +17,12 @@ import { ProductService } from '../../services/product.service';
   styleUrl: './order.component.css'
 })
 export class OrderComponent implements OnInit {
+
+  faPlus = faPlus ;
+  faEdit = faEdit ;
+  faTrash = faTrash ;
+  faCancel = faCancel ;
+  faSave = faSave ;
 
   products: any[] = [];
 

@@ -26,7 +26,7 @@
         />
     </div>
     <div class="form-group mb-2">
-        <button type="submit" class="btn btn-primary btn-lg px-4">Add Order</button>
+        <button type="submit" class="btn btn-primary btn-lg px-4"><fa-icon [icon]="faPlus"></fa-icon></button>
     </div>
 </form>
 
@@ -58,10 +58,10 @@
                 </td>
                 <td>{{ order.orderDate | date:'short' }}</td>
                 <td>
-                    <button *ngIf="editOrderId !== order.id" class="btn btn-primary btn-sm me-1" (click)="startEdit(order)">Edit</button>
-                    <button *ngIf="editOrderId === order.id" class="btn btn-success btn-sm me-1" (click)="updateOrder()">Save</button>
-                    <button *ngIf="editOrderId === order.id" class="btn btn-secondary btn-sm me-1" (click)="cancelEdit()">Cancel</button>
-                    <button class="btn btn-danger btn-sm" (click)="deleteOrder(order.id)">Delete</button>
+                    <button *ngIf="editOrderId !== order.id" class="btn btn-primary btn-sm me-1" (click)="startEdit(order)"><fa-icon [icon]="faEdit"></fa-icon></button>
+                    <button *ngIf="editOrderId === order.id" class="btn btn-success btn-sm me-1" (click)="updateOrder()"><fa-icon [icon]="faSave"></fa-icon></button>
+                    <button *ngIf="editOrderId === order.id" class="btn btn-secondary btn-sm me-1" (click)="cancelEdit()"><fa-icon [icon]="faCancel"></fa-icon></button>
+                    <button class="btn btn-danger btn-sm" (click)="deleteOrder(order.id)"><fa-icon [icon]="faTrash"></fa-icon></button>
                 </td>
             </tr>
         </tbody>
