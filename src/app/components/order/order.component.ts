@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ProductService } from '../../services/product.service';
 
 
 @Component({
@@ -15,8 +16,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   styleUrl: './order.component.css'
 })
 export class OrderComponent implements OnInit {
+
+  products: any[] = [];
+
   orders: any[] = [];
-  newOrder = { productId: '', quantity: '' };
+  newOrder = { productId: '', productName:'', quantity: '' };
   editOrderId: number | null = null;
   editOrder = { productId: '', quantity: '' };
 
@@ -25,21 +29,32 @@ export class OrderComponent implements OnInit {
   pagedOrders: any[] = [];
   totalPages = 1;
 
-  constructor(private orderService: OrderService) {}
+  constructor(private orderService: OrderService, private productService: ProductService) {}
+  // constructor(private orderService: OrderService) {}
 
   ngOnInit() {
     this.loadOrders();
+    this.loadProducts();
     this.updatePagedOrders();
   }
 
+  loadProducts() {
+    this.productService.getProducts().subscribe(data => {
+      this.products = data;
+      console.log(this.products);
+    });
+  }
+
   loadOrders() {
-    this.orderService.getOrders().subscribe(data => this.orders = data);
-    this.updatePagedOrders();
+    this.orderService.getOrders().subscribe(data => {
+      this.orders = data;
+      this.updatePagedOrders();
+    });
   }
 
   createOrder() {
     this.orderService.createOrder(this.newOrder).subscribe(() => {
-      this.newOrder = { productId: '', quantity: '' };
+      this.newOrder = { productId: '', productName:'', quantity: '' };
       this.loadOrders();
     });
   }
