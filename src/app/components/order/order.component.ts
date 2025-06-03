@@ -20,14 +20,21 @@ export class OrderComponent implements OnInit {
   editOrderId: number | null = null;
   editOrder = { productId: '', quantity: '' };
 
+  pageSize = 10;
+  currentPage = 1;
+  pagedOrders: any[] = [];
+  totalPages = 1;
+
   constructor(private orderService: OrderService) {}
 
   ngOnInit() {
     this.loadOrders();
+    this.updatePagedOrders();
   }
 
   loadOrders() {
     this.orderService.getOrders().subscribe(data => this.orders = data);
+    this.updatePagedOrders();
   }
 
   createOrder() {
@@ -53,5 +60,17 @@ export class OrderComponent implements OnInit {
 
   deleteOrder(id: number) {
     this.orderService.deleteOrder(id).subscribe(() => this.loadOrders());
+  }
+  ///pagination
+  updatePagedOrders() {
+      this.totalPages = Math.ceil(this.orders.length / this.pageSize);
+      const start = (this.currentPage - 1) * this.pageSize;
+      const end = start + this.pageSize;
+      this.pagedOrders = this.orders.slice(start, end);
+  }
+  goToPage(page: number) {
+      if (page < 1 || page > this.totalPages) return;
+      this.currentPage = page;
+      this.updatePagedOrders();
   }
 }
