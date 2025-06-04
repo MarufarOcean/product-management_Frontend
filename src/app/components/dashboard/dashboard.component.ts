@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,7 +26,7 @@ export class DashboardComponent implements OnInit {
   totalUsers = 0;
   recentActivities: string[] = [];
 
-  constructor(private productService: ProductService, private orderService: OrderService) {}
+  constructor(private productService: ProductService, private orderService: OrderService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadDashboardData();
@@ -45,4 +46,12 @@ export class DashboardComponent implements OnInit {
       // Add more activities dynamically
     ];
   }
+  
+  goToProducts(): void {
+    this.router.navigate(['/products']);
+  }
+  goToOrders(): void {
+    this.router.navigate(['/order']);
+  }
+
 }

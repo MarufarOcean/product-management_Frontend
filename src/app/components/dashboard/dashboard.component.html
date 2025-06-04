@@ -5,25 +5,25 @@
       <h4 class="text-center mb-4">Admin Dashboard</h4>
       <ul class="nav flex-column">
         <li class="nav-item mb-2">
-          <a class="nav-link text-white" routerLink="/products">
+          <a class="nav-link text-white" (click)="goToProducts()">
             <fa-icon [icon]="faBox"></fa-icon> Manage Products
           </a>
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-white" routerLink="/orders">
+          <a class="nav-link text-white" (click)="goToOrders()">
             <fa-icon [icon]="faShoppingCart"></fa-icon> Manage Orders
           </a>
         </li>
-        <li class="nav-item mb-2">
+        <!-- <li class="nav-item mb-2">
           <a class="nav-link text-white" routerLink="/users">
             <fa-icon [icon]="faUsers"></fa-icon> Manage Users
           </a>
-        </li>
-        <li class="nav-item mb-2">
+        </li> -->
+        <!-- <li class="nav-item mb-2">
           <a class="nav-link text-white" routerLink="/analytics">
             <fa-icon [icon]="faChartLine"></fa-icon> Analytics
           </a>
-        </li>
+        </li> -->
       </ul>
     </div>
 

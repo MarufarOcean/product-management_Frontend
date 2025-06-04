@@ -30,7 +30,8 @@ export class LoginComponent {
           localStorage.setItem('userRole', res.userRole,);
           localStorage.setItem('username', this.username); // Save the username to local storage
           alert('Login Successful!');
-          this.router.navigate(['/products']); // লগইন সফল হলে প্রোডাক্ট লিস্টে যাবে
+          //this.router.navigate(['/products']); // লগইন সফল হলে প্রোডাক্ট লিস্টে যাবে
+          this.router.navigate(['/dashboard']); // লগইন সফল হলে ড্যাশবোর্ডে যাবে
         },
         error: (error) => {
           alert('Invalid credentials')
