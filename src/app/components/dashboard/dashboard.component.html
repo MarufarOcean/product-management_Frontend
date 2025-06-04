@@ -1,0 +1,75 @@
+<div class="container-fluid p-4 bg-light">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3 bg-dark text-white p-3 rounded">
+      <h4 class="text-center mb-4">Admin Dashboard</h4>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2">
+          <a class="nav-link text-white" routerLink="/products">
+            <fa-icon [icon]="faBox"></fa-icon> Manage Products
+          </a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link text-white" routerLink="/orders">
+            <fa-icon [icon]="faShoppingCart"></fa-icon> Manage Orders
+          </a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link text-white" routerLink="/users">
+            <fa-icon [icon]="faUsers"></fa-icon> Manage Users
+          </a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link text-white" routerLink="/analytics">
+            <fa-icon [icon]="faChartLine"></fa-icon> Analytics
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9">
+      <div class="row">
+        <!-- Analytics Cards -->
+        <div class="col-md-4 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body text-center">
+              <h5 class="card-title">Total Products</h5>
+              <p class="card-text fs-4 fw-bold">{{ totalProducts }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body text-center">
+              <h5 class="card-title">Total Orders</h5>
+              <p class="card-text fs-4 fw-bold">{{ totalOrders }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body text-center">
+              <h5 class="card-title">Total Users</h5>
+              <p class="card-text fs-4 fw-bold">{{ totalUsers }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Recent Activity</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let activity of recentActivities">
+              {{ activity }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
