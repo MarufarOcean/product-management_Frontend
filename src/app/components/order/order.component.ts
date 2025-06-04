@@ -1,5 +1,5 @@
 // order.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, AfterViewInit } from '@angular/core';
 import { OrderService } from '../../services/order.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -7,7 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrash, faCancel, faEdit, faPlus, faSave } from '@fortawesome/free-solid-svg-icons'
 import { ProductService } from '../../services/product.service';
-
+import { After } from 'v8';
+declare var $: any; // Declare jQuery globally
 
 @Component({
   selector: 'app-order',
@@ -16,7 +17,7 @@ import { ProductService } from '../../services/product.service';
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })
-export class OrderComponent implements OnInit {
+export class OrderComponent implements OnInit, AfterViewInit {
 
   faPlus = faPlus ;
   faEdit = faEdit ;
@@ -43,6 +44,13 @@ export class OrderComponent implements OnInit {
     this.loadOrders();
     this.loadProducts();
     this.updatePagedOrders();
+  }
+
+  ngAfterViewInit() {
+    $('#productDropdown').select2({
+      placeholder: 'Select Product',
+      allowClear: true
+    });
   }
 
   loadProducts() {
@@ -87,6 +95,12 @@ export class OrderComponent implements OnInit {
   cancelEdit() {
     this.editOrderId = null; // Exit edit mode
   }
+
+  selectProduct(productId: string) {
+    this.newOrder.productId = productId;
+  }
+
+  
 
   ///pagination
   updatePagedOrders() {

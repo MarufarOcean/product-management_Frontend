@@ -8,12 +8,18 @@
             [(ngModel)]="newOrder.productId"
             name="productId"
             required
+            
         >
             <option value="" disabled selected>Select Product</option>
             <option *ngFor="let product of products" [value]="product.id">
                 {{ product.id }} - {{ product.name }}
             </option>
         </select>
+        <!-- <select class="form-control" id="productDropdown">
+            <option *ngFor="let product of products" [value]="product.id">
+                {{ product.id }} - {{ product.name }}
+            </option>
+        </select> -->
     </div>
     <div class="form-group mb-2">
         <input
